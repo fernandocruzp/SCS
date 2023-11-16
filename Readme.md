@@ -1,0 +1,1 @@
+Esquema de Secreto Compartido de Shamir
