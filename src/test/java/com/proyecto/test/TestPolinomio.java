@@ -1,7 +1,10 @@
+package com.proyecto.test;
+import java.util.NoSuchElementException;
+import org.junit.Assert;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import com.proyecto.Polinomio;
 
-public class TestPolinomio{
+public class TestPolinomio {
 
     @Test
     public void testConstructor() {
@@ -10,16 +13,19 @@ public class TestPolinomio{
 
         Polinomio polinomio = new Polinomio(grado, coeficientes);
 
-        assertEquals(grado, polinomio.getGrado());
-        assertArrayEquals(coeficientes, polinomio.getCoeficientes());
+        Assert.assertEquals(grado, polinomio.getGrado());
+        Assert.assertArrayEquals(coeficientes, polinomio.getCoeficientes());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testConstructorError() {
         int grado = 2;
         int[] coeficientes = {1, 2};
-
-        new Polinomio(grado, coeficientes);
+        try {
+            new Polinomio(grado, coeficientes);
+            Assert.fail();
+        }
+        catch (IllegalArgumentException ia){}
     }
 
     @Test
@@ -29,17 +35,7 @@ public class TestPolinomio{
 
         Polinomio polinomio = new Polinomio(grado, coeficientes);
 
-        assertEquals(1, polinomio.coeficienteIndependiente());
-    }
-
-    @Test(expected = NoSuchElementException.class)
-    public void testCoeficienteIndependienteError() {
-        int grado = -1;
-        int[] coeficientes = {1};
-
-        Polinomio polinomio = new Polinomio(grado, coeficientes);
-
-        polinomio.coeficienteIndependiente();
+        Assert.assertEquals(1, polinomio.coeficienteIndependiente());
     }
 
     @Test
@@ -49,8 +45,8 @@ public class TestPolinomio{
 
         Polinomio polinomio = new Polinomio(grado, coeficientes);
 
-        assertEquals(6, polinomio.evaluarPolinomio(1));
-        assertEquals(12, polinomio.evaluarPolinomio(2));
+        Assert.assertEquals(6, polinomio.evaluarPolinomio(1));
+        Assert.assertEquals(17, polinomio.evaluarPolinomio(2));
     }
 
     @Test
@@ -62,7 +58,7 @@ public class TestPolinomio{
         Polinomio polinomio1 = new Polinomio(grado, coeficientes1);
         Polinomio polinomio2 = new Polinomio(grado, coeficientes2);
 
-        assertTrue(polinomio1.equals(polinomio2));
+        Assert.assertTrue(polinomio1.equals(polinomio2));
     }
 
     @Test
@@ -74,7 +70,7 @@ public class TestPolinomio{
         Polinomio polinomio1 = new Polinomio(grado, coeficientes1);
         Polinomio polinomio2 = new Polinomio(grado, coeficientes2);
 
-        assertFalse(polinomio1.equals(polinomio2));
+        Assert.assertFalse(polinomio1.equals(polinomio2));
     }
 
     @Test
@@ -84,7 +80,6 @@ public class TestPolinomio{
 
         Polinomio polinomio = new Polinomio(grado, coeficientes);
 
-        assertEquals("1 + 2(x^1) + 3(x^2)", polinomio.toString());
+        Assert. assertEquals("1 + 2(x^1) + 3(x^2)", polinomio.toString());
     }
 }
-

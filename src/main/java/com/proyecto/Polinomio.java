@@ -1,3 +1,4 @@
+package com.proyecto;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
@@ -24,8 +25,10 @@ public class Polinomio {
 
     public int coeficienteIndependiente() throws NoSuchElementException{
         if (grado <0)
-            return coeficientes[0];
-        throw new NoSuchElementException("EL polinomio no tiene término independite");
+            throw new NoSuchElementException("EL polinomio no tiene término independite");
+
+        return coeficientes[0];
+
     }
 
     public int evaluarPolinomio(int x){

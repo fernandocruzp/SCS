@@ -69,7 +69,7 @@
 	<configuration>
 	  <archive>
 	    <manifest>
-	      <mainClass>SCS</mainClass>
+	      <mainClass>com.proyecto.SCS</mainClass>
 	    </manifest>
 	  </archive>
 	</configuration>
