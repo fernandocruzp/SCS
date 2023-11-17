@@ -4,10 +4,10 @@ import java.util.NoSuchElementException;
 
 public class Polinomio {
     private int grado;
-    private int[] coeficientes;
+    private double[] coeficientes;
 
 
-    public Polinomio(int grado, int[] coeficientes) throws IllegalArgumentException{
+    public Polinomio(int grado, double[] coeficientes) throws IllegalArgumentException{
         if(grado!= coeficientes.length-1)
             throw new IllegalArgumentException("La cantidad de coeficientes de un polinimio es siempre igual a grado +1");
         this.grado = grado;
@@ -19,11 +19,11 @@ public class Polinomio {
         return grado;
     }
 
-    public int[] getCoeficientes() {
+    public double[] getCoeficientes() {
         return coeficientes;
     }
 
-    public int coeficienteIndependiente() throws NoSuchElementException{
+    public double coeficienteIndependiente() throws NoSuchElementException{
         if (grado <0)
             throw new NoSuchElementException("EL polinomio no tiene término independite");
 
@@ -31,8 +31,8 @@ public class Polinomio {
 
     }
 
-    public int evaluarPolinomio(int x){
-        int valor=coeficienteIndependiente();
+    public double evaluarPolinomio(int x){
+        double valor=coeficienteIndependiente();
         for(int i=1;i<=grado;i++){
             valor+=(coeficientes[i]*Math.pow(x,i));
         }
