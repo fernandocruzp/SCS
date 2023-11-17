@@ -70,4 +70,25 @@ public class TestOperacionesPolinomios {
         }
         catch (NullPointerException ex){}
     }
+
+    @Test
+    public void testDivi(){
+        int grado = 2;
+        double[] coeficientes = {1, 2, 3};
+        double[] coeficientes2 = {2, 7, 17, 19, 15};
+        Polinomio polinomio = new Polinomio(grado, coeficientes);
+        Polinomio polinomio2 = new Polinomio(4, coeficientes2);
+        OperacionesPolinomios div = new OperacionesPolinomios();
+        Polinomio res= div.division(polinomio,polinomio2);
+        Assert. assertEquals("2.0 + 3.0(x^1) + 5.0(x^2)", res.toString());
+        try{
+            Polinomio res2=div.division(polinomio,null);
+            Assert.fail();
+            res2=div.division(polinomio2,polinomio);
+            Assert.fail();
+        }
+        catch (NullPointerException ex){}
+        catch (IllegalArgumentException ix){}
+    }
+
 }

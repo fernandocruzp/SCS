@@ -15,6 +15,16 @@ public class Polinomio {
 
     }
 
+    public Polinomio(int grado, double coef){
+        this.grado=grado;
+        coeficientes=new double[grado+1];
+        coeficientes[grado]=coef;
+    }
+
+    public void setCoeficientes(double[] coeficientes){
+        this.coeficientes=Arrays.copyOf(coeficientes,coeficientes.length);
+    }
+
     public int getGrado() {
         return grado;
     }
@@ -28,7 +38,6 @@ public class Polinomio {
             throw new NoSuchElementException("EL polinomio no tiene término independite");
 
         return coeficientes[0];
-
     }
 
     public double evaluarPolinomio(int x){
@@ -37,6 +46,13 @@ public class Polinomio {
             valor+=(coeficientes[i]*Math.pow(x,i));
         }
         return valor;
+    }
+
+    public boolean esPolCero(){
+        for(double i: coeficientes)
+            if(i!=0)
+                return false;
+        return true;
     }
 
     @Override
