@@ -108,7 +108,16 @@ public class OperacionesPolinomios {
         for(int i=1;i<puntos.length;i++){
             res=suma(res,productoEscalar(prodcutoLagrange(i,puntos,polinomioProd,polinomios),puntos[i][1]));
         }
-        return res;
+        return redondeo(res);
+    }
+
+    private Polinomio redondeo(Polinomio p){
+        double[] coeficientes= new double[p.getGrado()+1];
+        for(int i=0;i<=p.getGrado();i++){
+            coeficientes[i]=Math.round(10*p.getCoeficientes()[i])/10;
+        }
+        p.setCoeficientes(coeficientes);
+        return p;
     }
 
     private Polinomio prodPolinomio(Polinomio[] polinomios){
@@ -141,7 +150,8 @@ public class OperacionesPolinomios {
                 continue;
             prod*=(x[i][0]-x[j][0]);
         }
-        res=productoEscalar(res,(1/prod));
+        double divisor= (1/prod);
+        res=productoEscalar(res,divisor);
         return res;
     }
 }

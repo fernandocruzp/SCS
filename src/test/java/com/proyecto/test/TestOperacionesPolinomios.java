@@ -93,13 +93,13 @@ public class TestOperacionesPolinomios {
 
     @Test
     public void testInterpolacion(){
-        double[] coeficientes = {2, 7, 17};
-        Polinomio polinomio = new Polinomio(2, coeficientes);
-        double[] punto1={0,2}, punto2={3,polinomio.evaluarPolinomio(3)},punto3={7,polinomio.evaluarPolinomio(7)};
-        double[][] puntos={punto1,punto2,punto3};
+        double[] coeficientes = {2, 7, 17,19};
+        Polinomio polinomio = new Polinomio(3, coeficientes);
+        double[] punto1={0,2}, punto2={3,polinomio.evaluarPolinomio(3)},punto3={7,polinomio.evaluarPolinomio(7)},punto4={12,polinomio.evaluarPolinomio(12)};
+        double[][] puntos={punto1,punto2,punto3,punto4};
         OperacionesPolinomios lagrange= new OperacionesPolinomios();
         Polinomio res = lagrange.interpolacionLagrange(puntos);
-        Assert.assertEquals("2.0 + 7.0(x^1) + 17.0(x^2)",res.toString());
+        Assert.assertEquals("2.0 + 7.0(x^1) + 17.0(x^2) + 19.0(x^3)",res.toString());
     }
 
 }
