@@ -70,4 +70,36 @@ public class TestOperacionesPolinomios {
         }
         catch (NullPointerException ex){}
     }
+
+    @Test
+    public void testDivi(){
+        int grado = 2;
+        double[] coeficientes = {1, 2, 3};
+        double[] coeficientes2 = {2, 7, 17, 19, 15};
+        Polinomio polinomio = new Polinomio(grado, coeficientes);
+        Polinomio polinomio2 = new Polinomio(4, coeficientes2);
+        OperacionesPolinomios div = new OperacionesPolinomios();
+        Polinomio res= div.division(polinomio,polinomio2);
+        Assert. assertEquals("2.0 + 3.0(x^1) + 5.0(x^2)", res.toString());
+        try{
+            Polinomio res2=div.division(polinomio,null);
+            Assert.fail();
+            res2=div.division(polinomio2,polinomio);
+            Assert.fail();
+        }
+        catch (NullPointerException ex){}
+        catch (IllegalArgumentException ix){}
+    }
+
+    @Test
+    public void testInterpolacion(){
+        double[] coeficientes = {2, 7, 17,19};
+        Polinomio polinomio = new Polinomio(3, coeficientes);
+        double[] punto1={0,2}, punto2={3,polinomio.evaluarPolinomio(3)},punto3={7,polinomio.evaluarPolinomio(7)},punto4={12,polinomio.evaluarPolinomio(12)};
+        double[][] puntos={punto1,punto2,punto3,punto4};
+        OperacionesPolinomios lagrange= new OperacionesPolinomios();
+        Polinomio res = lagrange.interpolacionLagrange(puntos);
+        Assert.assertEquals("2.0 + 7.0(x^1) + 17.0(x^2) + 19.0(x^3)",res.toString());
+    }
+
 }
