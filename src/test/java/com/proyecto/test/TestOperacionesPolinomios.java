@@ -91,4 +91,15 @@ public class TestOperacionesPolinomios {
         catch (IllegalArgumentException ix){}
     }
 
+    @Test
+    public void testInterpolacion(){
+        double[] coeficientes = {2, 7, 17};
+        Polinomio polinomio = new Polinomio(2, coeficientes);
+        double[] punto1={0,2}, punto2={3,polinomio.evaluarPolinomio(3)},punto3={7,polinomio.evaluarPolinomio(7)};
+        double[][] puntos={punto1,punto2,punto3};
+        OperacionesPolinomios lagrange= new OperacionesPolinomios();
+        Polinomio res = lagrange.interpolacionLagrange(puntos);
+        Assert.assertEquals("2.0 + 7.0(x^1) + 17.0(x^2)",res.toString());
+    }
+
 }

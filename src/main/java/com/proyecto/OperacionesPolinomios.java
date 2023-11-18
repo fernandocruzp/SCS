@@ -5,7 +5,6 @@ import java.util.Arrays;
 public class OperacionesPolinomios {
 
 
-    Polinomio[] polinomios;
 
     public Polinomio suma(Polinomio p1, Polinomio p2) throws NullPointerException{
         if(p1 ==null || p2 == null)
@@ -100,28 +99,49 @@ public class OperacionesPolinomios {
         return divisionR(p1,resta(p2,multiplicacion(p1,multiplicador)),p3);
     }
 
-    public Polinomio interpolacionLagrange(int[][] puntos) throws NullPointerException{
+    public Polinomio interpolacionLagrange(double[][] puntos) throws NullPointerException{
         if(puntos==null)
             throw new NullPointerException("No se recibieron puntos");
-        Polinomio polinomio=null;
-        for(int i=0;i<puntos.length;i++){
-
+        Polinomio[] polinomios=Arrays.copyOf(generarPolinomios(puntos),puntos.length);
+        Polinomio polinomioProd=prodPolinomio(polinomios);
+        Polinomio res=productoEscalar(prodcutoLagrange(0,puntos,polinomioProd,polinomios),puntos[0][1]);
+        for(int i=1;i<puntos.length;i++){
+            res=suma(res,productoEscalar(prodcutoLagrange(i,puntos,polinomioProd,polinomios),puntos[i][1]));
         }
-        return null;
+        return res;
     }
 
-    private void generarPolinomios(int[][] puntos){
-        polinomios=new Polinomio[puntos.length];
+    private Polinomio prodPolinomio(Polinomio[] polinomios){
+        Polinomio p= polinomios[0];
+        for(int i=1;i<polinomios.length;i++){
+            p=multiplicacion(p,polinomios[i]);
+        }
+        return p;
+    }
+
+    private Polinomio[] generarPolinomios(double[][] puntos){
+        Polinomio[] polinomios=new Polinomio[puntos.length];
         int i=0;
-        for (int[] punto : puntos){
-            polinomios[i]=new Polinomio(1,new double[]{(-1*punto[0]),1});
+        for (double[] punto : puntos){
+            double[] n= {(-1*punto[0]),1};
+            polinomios[i]=new Polinomio(1,n);
+            i++;
         }
+        return polinomios;
     }
 
 
 
 
-    private Polinomio prodcutoLagrange(int i, int[] x){
-        return null;
+    private Polinomio prodcutoLagrange(int i, double[][] x, Polinomio polinomio, Polinomio[] polinomios){
+        Polinomio res=division(polinomios[i],polinomio);
+        double prod=1;
+        for(int j=0;j< x.length;j++){
+            if(j==i)
+                continue;
+            prod*=(x[i][0]-x[j][0]);
+        }
+        res=productoEscalar(res,(1/prod));
+        return res;
     }
 }
