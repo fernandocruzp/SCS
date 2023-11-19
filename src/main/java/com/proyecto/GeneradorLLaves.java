@@ -11,6 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GeneradorLLaves {
+
+
+
+
     public static void guardarLlaves(int n, int t, BigDecimal llave, String nombreArchivo) throws IllegalArgumentException{
         if(t<n)
             throw new IllegalArgumentException("El número de puntos mínimos debe ser menor al número total de puntos");
@@ -25,7 +29,7 @@ public class GeneradorLLaves {
 
             BigDecimal[][] puntos=new BigDecimal[t][2];
             for (int i=0;i<t;i++){
-                int x= (generador.nextInt());
+                int x= (generador.nextInt(100));
                 puntos[i][0]=BigDecimal.valueOf(x);
                 puntos[i][1]=polinomio.evaluarPolinomio(x);
             }
@@ -46,12 +50,15 @@ public class GeneradorLLaves {
     public static BigDecimal generarLlave(String nombreArchivo){
         Path path = Path.of(nombreArchivo);
         try {
-            List<String>lineas= Files.readAllLines(path);
-            BigDecimal[][] puntos= new BigDecimal[lineas.size()][2];
-            for (int i=0;i<lineas.size();i++)
-                puntos[i]=procesarTexto(lineas.get(i));
+            List<String> lineas = Files.readAllLines(path);
+            BigDecimal[][] puntos = new BigDecimal[lineas.size()][2];
+            for (int i = 0; i < lineas.size(); i++){
+                puntos[i] = procesarTexto(lineas.get(i));
+                System.out.println(Arrays.toString(puntos[i]));
+            }
             OperacionesPolinomios lagrange= new OperacionesPolinomios();
             Polinomio polinomio = lagrange.interpolacionLagrange(puntos);
+            System.out.println(polinomio);
             return polinomio.coeficienteIndependiente();
         }catch (IOException ie){
             System.out.println("No se encontró el archivo de llaves");

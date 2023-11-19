@@ -109,11 +109,15 @@ public class OperacionesPolinomios {
         if (puntos == null)
             throw new NullPointerException("No se recibieron puntos");
         Polinomio[] polinomios = Arrays.copyOf(generarPolinomios(puntos), puntos.length);
+        System.out.println(Arrays.toString(polinomios));
         Polinomio polinomioProd = prodPolinomio(polinomios);
+        System.out.println(polinomioProd);
         Polinomio res = productoEscalar(prodcutoLagrange(0, puntos, polinomioProd, polinomios), puntos[0][1]);
         for (int i = 1; i < puntos.length; i++) {
+            System.out.println(res);
             res = suma(res, productoEscalar(prodcutoLagrange(i, puntos, polinomioProd, polinomios), puntos[i][1]));
         }
+        System.out.println(res);
         return redondeo(res);
     }
 
@@ -147,6 +151,7 @@ public class OperacionesPolinomios {
 
     private Polinomio prodcutoLagrange(int i, BigDecimal[][] x, Polinomio polinomio, Polinomio[] polinomios) {
         Polinomio res = division(polinomios[i], polinomio);
+        System.out.println(res);
         BigDecimal prod = BigDecimal.ONE;
         for (int j = 0; j < x.length; j++) {
             if (j == i)
