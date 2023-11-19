@@ -40,7 +40,7 @@ public class TestGeneradorLlaves {
         Polinomio polinomio = new Polinomio(3, coeficientes);
         creaArchivodePrueba(polinomio);
         Assert.assertTrue(GeneradorLLaves.generarLlave("pepa.frg").compareTo(polinomio.coeficienteIndependiente())==0);
-        File testFile = new File("prepa.frg");
+        File testFile = new File("pepa.frg");
         if(testFile.exists())
             testFile.delete();
     }
