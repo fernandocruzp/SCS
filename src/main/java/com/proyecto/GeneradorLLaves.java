@@ -22,14 +22,14 @@ public class GeneradorLLaves {
         BigDecimal[] coeficientes=new BigDecimal[n];
         coeficientes[0]=llave;
         for(int i=1;i<n;i++)
-            coeficientes[i]=BigDecimal.valueOf(generador.nextInt(100));
+            coeficientes[i]=BigDecimal.valueOf(generador.nextInt(1000));
 
         try {
             Polinomio polinomio=new Polinomio(n-1,coeficientes);
 
             BigDecimal[][] puntos=new BigDecimal[t][2];
             for (int i=0;i<t;i++){
-                int x= (generador.nextInt(100));
+                int x= (generador.nextInt(6));
                 puntos[i][0]=BigDecimal.valueOf(x);
                 puntos[i][1]=polinomio.evaluarPolinomio(x);
             }
@@ -54,11 +54,9 @@ public class GeneradorLLaves {
             BigDecimal[][] puntos = new BigDecimal[lineas.size()][2];
             for (int i = 0; i < lineas.size(); i++){
                 puntos[i] = procesarTexto(lineas.get(i));
-                System.out.println(Arrays.toString(puntos[i]));
             }
             OperacionesPolinomios lagrange= new OperacionesPolinomios();
             Polinomio polinomio = lagrange.interpolacionLagrange(puntos);
-            System.out.println(polinomio);
             return polinomio.coeficienteIndependiente();
         }catch (IOException ie){
             System.out.println("No se encontró el archivo de llaves");
