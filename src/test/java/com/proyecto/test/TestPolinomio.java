@@ -1,4 +1,5 @@
 package com.proyecto.test;
+import java.math.BigDecimal;
 import java.util.NoSuchElementException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,7 +10,7 @@ public class TestPolinomio {
     @Test
     public void testConstructor() {
         int grado = 2;
-        double[] coeficientes = {1, 2, 3};
+        BigDecimal[] coeficientes = {BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(3)};
 
         Polinomio polinomio = new Polinomio(grado, coeficientes);
 
@@ -19,7 +20,7 @@ public class TestPolinomio {
     @Test
     public void testConstructorError() {
         int grado = 2;
-        double[] coeficientes = {1, 2};
+        BigDecimal[] coeficientes = {BigDecimal.valueOf(1), BigDecimal.valueOf(2)};
         try {
             new Polinomio(grado, coeficientes);
             Assert.fail();
@@ -30,29 +31,29 @@ public class TestPolinomio {
     @Test
     public void testCoeficienteIndependiente() {
         int grado = 2;
-        double[] coeficientes = {1, 2, 3};
+        BigDecimal[] coeficientes = {BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(3)};
 
         Polinomio polinomio = new Polinomio(grado, coeficientes);
 
-        Assert.assertEquals(1, polinomio.coeficienteIndependiente(),0.2);
+        Assert.assertEquals(BigDecimal.valueOf(1), polinomio.coeficienteIndependiente());
     }
 
     @Test
     public void testEvaluarPolinomio() {
         int grado = 2;
-        double[] coeficientes = {1, 2, 3};
+        BigDecimal[] coeficientes = {BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(3)};
 
         Polinomio polinomio = new Polinomio(grado, coeficientes);
 
-        Assert.assertEquals(6, polinomio.evaluarPolinomio(1),0.2);
-        Assert.assertEquals(17, polinomio.evaluarPolinomio(2),0.2);
+        Assert.assertEquals(BigDecimal.valueOf(6), polinomio.evaluarPolinomio(1));
+        Assert.assertEquals(BigDecimal.valueOf(17), polinomio.evaluarPolinomio(2));
     }
 
     @Test
     public void testEquals() {
         int grado = 2;
-        double[] coeficientes1 = {1, 2, 3};
-        double[] coeficientes2 = {1, 2, 3};
+        BigDecimal[] coeficientes1 = {BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(3)};
+        BigDecimal[] coeficientes2 = {BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(3)};
 
         Polinomio polinomio1 = new Polinomio(grado, coeficientes1);
         Polinomio polinomio2 = new Polinomio(grado, coeficientes2);
@@ -63,8 +64,8 @@ public class TestPolinomio {
     @Test
     public void testNotEquals() {
         int grado = 2;
-        double[] coeficientes1 = {1, 2, 3};
-        double[] coeficientes2 = {1, 2, 4};
+        BigDecimal[] coeficientes1 = {BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(3)};
+        BigDecimal[] coeficientes2 = {BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(4)};
 
         Polinomio polinomio1 = new Polinomio(grado, coeficientes1);
         Polinomio polinomio2 = new Polinomio(grado, coeficientes2);
@@ -75,10 +76,10 @@ public class TestPolinomio {
     @Test
     public void testToString() {
         int grado = 2;
-        double[] coeficientes = {1, 2, 3};
+        BigDecimal[] coeficientes = {BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(3)};
 
         Polinomio polinomio = new Polinomio(grado, coeficientes);
 
-        Assert. assertEquals("1.0 + 2.0(x^1) + 3.0(x^2)", polinomio.toString());
+        Assert. assertEquals("1 + 2(x^1) + 3(x^2)", polinomio.toString());
     }
 }

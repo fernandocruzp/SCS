@@ -1,56 +1,57 @@
 package com.proyecto;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class Polinomio {
     private int grado;
-    private double[] coeficientes;
+    private BigDecimal[] coeficientes;
 
-
-    public Polinomio(int grado, double[] coeficientes) throws IllegalArgumentException{
-        if(grado!= coeficientes.length-1)
-            throw new IllegalArgumentException("La cantidad de coeficientes de un polinimio es siempre igual a grado +1");
+    public Polinomio(int grado, BigDecimal[] coeficientes) throws IllegalArgumentException {
+        if (grado != coeficientes.length - 1)
+            throw new IllegalArgumentException("La cantidad de coeficientes de un polinomio es siempre igual a grado + 1");
         this.grado = grado;
-        this.coeficientes=Arrays.copyOf(coeficientes,grado+1);
-
+        this.coeficientes = Arrays.copyOf(coeficientes, grado + 1);
     }
 
-    public Polinomio(int grado, double coef){
-        this.grado=grado;
-        coeficientes=new double[grado+1];
-        coeficientes[grado]=coef;
+    public Polinomio(int grado, BigDecimal coef) {
+        this.grado = grado;
+        coeficientes = new BigDecimal[grado + 1];
+        Arrays.fill(coeficientes,BigDecimal.ZERO);
+        coeficientes[grado] = coef;
     }
 
-    public void setCoeficientes(double[] coeficientes){
-        this.coeficientes=Arrays.copyOf(coeficientes,coeficientes.length);
+    public void setCoeficientes(BigDecimal[] coeficientes) {
+        this.coeficientes = Arrays.copyOf(coeficientes, coeficientes.length);
     }
 
     public int getGrado() {
         return grado;
     }
 
-    public double[] getCoeficientes() {
+    public BigDecimal[] getCoeficientes() {
         return coeficientes;
     }
 
-    public double coeficienteIndependiente() throws NoSuchElementException{
-        if (grado <0)
-            throw new NoSuchElementException("EL polinomio no tiene término independite");
+    public BigDecimal coeficienteIndependiente() throws NoSuchElementException {
+        if (grado < 0)
+            throw new NoSuchElementException("El polinomio no tiene término independiente");
 
         return coeficientes[0];
     }
 
-    public double evaluarPolinomio(int x){
-        double valor=coeficienteIndependiente();
-        for(int i=1;i<=grado;i++){
-            valor+=(coeficientes[i]*Math.pow(x,i));
+    public BigDecimal evaluarPolinomio(int x) {
+        BigDecimal valor = coeficienteIndependiente();
+        for (int i = 1; i <= grado; i++) {
+            BigDecimal term = coeficientes[i].multiply(BigDecimal.valueOf(x).pow(i));
+            valor = valor.add(term);
         }
         return valor;
     }
 
-    public boolean esPolCero(){
-        for(double i: coeficientes)
-            if(i!=0)
+    public boolean esPolCero() {
+        for (BigDecimal i : coeficientes)
+            if (i.compareTo(BigDecimal.ZERO) != 0)
                 return false;
         return true;
     }
@@ -65,10 +66,10 @@ public class Polinomio {
 
     @Override
     public String toString() {
-        String pol=""+ coeficienteIndependiente();
-        for(int i=1;i<=grado;i++){
-            pol+=" + " + (coeficientes[i]) +"(x^" + i+")";
+        StringBuilder pol = new StringBuilder(coeficienteIndependiente().toString());
+        for (int i = 1; i <= grado; i++) {
+            pol.append(" + ").append(coeficientes[i]).append("(x^").append(i).append(")");
         }
-        return pol;
+        return pol.toString();
     }
 }
