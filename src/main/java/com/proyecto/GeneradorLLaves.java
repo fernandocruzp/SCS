@@ -14,7 +14,15 @@ public class GeneradorLLaves {
 
 
 
-
+    /**
+     * Genera un conjunto de puntos aleatorios y guarda el polinomio correspondiente en un archivo.
+     *
+     * @param n              El grado del polinomio (número de coeficientes).
+     * @param t              El número total de puntos a generar.
+     * @param llave          El valor del coeficiente independiente del polinomio (clave secreta).
+     * @param nombreArchivo  El nombre del archivo en el que se guardarán los puntos generados.
+     * @throws IllegalArgumentException Si el número de puntos mínimos es mayor o igual al número total de puntos.
+     */
     public static void guardarLlaves(int n, int t, BigDecimal llave, String nombreArchivo) throws IllegalArgumentException{
         if(t<n)
             throw new IllegalArgumentException("El número de puntos mínimos debe ser menor al número total de puntos");
@@ -46,7 +54,12 @@ public class GeneradorLLaves {
             System.out.println("Hubo un error");
         }
     }
-
+    /**
+     * Lee un archivo de puntos generados, realiza la interpolación de Lagrange y devuelve la clave original.
+     *
+     * @param nombreArchivo El nombre del archivo que contiene los puntos generados.
+     * @return El valor del coeficiente independiente del polinomio interpolado (clave original).
+     */
     public static BigDecimal generarLlave(String nombreArchivo){
         Path path = Path.of(nombreArchivo);
         try {
@@ -63,7 +76,12 @@ public class GeneradorLLaves {
             return null;
         }
     }
-
+    /**
+     * Procesa una línea de texto que contiene un par de valores separados por coma y devuelve un arreglo BigDecimal.
+     *
+     * @param arreglo La línea de texto que contiene los valores.
+     * @return Un arreglo BigDecimal con los dos valores procesados.
+     */
     private static BigDecimal[] procesarTexto(String arreglo){
         arreglo=arreglo.substring(1,arreglo.length()-1);
         String[] elementos=arreglo.split(",");

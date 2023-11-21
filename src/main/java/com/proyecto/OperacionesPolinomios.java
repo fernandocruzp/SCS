@@ -3,8 +3,20 @@ package com.proyecto;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
+/**
+ * Clase que realiza operaciones comunes sobre polinomios.
+ */
 public class OperacionesPolinomios {
 
+
+    /**
+     * Realiza la suma de dos polinomios.
+     *
+     * @param p1 El primer polinomio.
+     * @param p2 El segundo polinomio.
+     * @return Un nuevo polinomio que es el resultado de la suma.
+     * @throws NullPointerException Si alguno de los polinomios es nulo.
+     */
     public Polinomio suma(Polinomio p1, Polinomio p2) throws NullPointerException {
         if (p1 == null || p2 == null)
             throw new NullPointerException("Debes introducir dos polinomios para sumar");
@@ -29,7 +41,14 @@ public class OperacionesPolinomios {
         }
         return new Polinomio(grado, coef);
     }
-
+    /**
+     * Realiza la resta de dos polinomios.
+     *
+     * @param p1 El primer polinomio.
+     * @param p2 El segundo polinomio.
+     * @return Un nuevo polinomio que es el resultado de la resta.
+     * @throws NullPointerException Si alguno de los polinomios es nulo.
+     */
     public Polinomio resta(Polinomio p1, Polinomio p2) throws NullPointerException {
         if (p1 == null || p2 == null)
             throw new NullPointerException("Debes introducir dos polinomios para restar");
@@ -54,7 +73,14 @@ public class OperacionesPolinomios {
         }
         return new Polinomio(grado, coef);
     }
-
+    /**
+     * Realiza la multiplicación de dos polinomios.
+     *
+     * @param p1 El primer polinomio.
+     * @param p2 El segundo polinomio.
+     * @return Un nuevo polinomio que es el resultado de la resta.
+     * @throws NullPointerException Si alguno de los polinomios es nulo.
+     */
     public Polinomio multiplicacion(Polinomio p1, Polinomio p2) throws NullPointerException {
         if (p1 == null || p2 == null)
             throw new NullPointerException("Debes introducir dos polinomios para multiplicar");
@@ -71,13 +97,28 @@ public class OperacionesPolinomios {
         return new Polinomio(n + m, coef);
     }
 
+    /**
+     * Realiza la multiplicación de un polinomio por un escalar.
+     *
+     * @param p El polinomio.
+     * @param i El escalar.
+     * @return Un nuevo polinomio que es el resultado de la multiplicación por el escalar.
+     */
     public Polinomio productoEscalar(Polinomio p, BigDecimal i) {
         BigDecimal[] m = new BigDecimal[p.getGrado() + 1];
         for (int j = 0; j < p.getGrado() + 1; j++)
             m[j] = p.getCoeficientes()[j].multiply(i);
         return new Polinomio(p.getGrado(), m);
     }
-
+    /**
+     * Realiza la división de dos polinomios.
+     *
+     * @param p1 El numerador (polinomio de grado menor o igual).
+     * @param p2 El denominador (polinomio de grado mayor o igual).
+     * @return Un nuevo polinomio que es el resultado de la división.
+     * @throws IllegalArgumentException Si el grado del numerador no es menor o igual al del denominador.
+     * @throws NullPointerException     Si alguno de los polinomios es nulo.
+     */
     public Polinomio division(Polinomio p1, Polinomio p2) throws IllegalArgumentException, NullPointerException {
         if (p1 == null || p2 == null)
             throw new NullPointerException("Debes introducir dos polinomios para dividir");
@@ -104,7 +145,13 @@ public class OperacionesPolinomios {
         p3.setCoeficientes(coef);
         return divisionR(p1, resta(p2, multiplicacion(p1, multiplicador)), p3);
     }
-
+    /**
+     * Realiza la interpolación de Lagrange para un conjunto de puntos.
+     *
+     * @param puntos La matriz de puntos donde cada fila es un par (x, y).
+     * @return El polinomio resultante de la interpolación de Lagrange.
+     * @throws NullPointerException Si la matriz de puntos es nula.
+     */
     public Polinomio interpolacionLagrange(BigDecimal[][] puntos) throws NullPointerException {
         if (puntos == null)
             throw new NullPointerException("No se recibieron puntos");
@@ -116,7 +163,12 @@ public class OperacionesPolinomios {
         }
         return redondeo(res);
     }
-
+    /**
+     * Redondea los coeficientes de un polinomio a una décima.
+     *
+     * @param p El polinomio a redondear.
+     * @return Un nuevo polinomio con los coeficientes redondeados.
+     */
     private Polinomio redondeo(Polinomio p) {
         BigDecimal[] coeficientes = new BigDecimal[p.getGrado() + 1];
         for (int i = 0; i <= p.getGrado(); i++) {
@@ -125,7 +177,12 @@ public class OperacionesPolinomios {
         p.setCoeficientes(coeficientes);
         return p;
     }
-
+    /**
+     * Realiza el producto de varios polinomios.
+     *
+     * @param polinomios Los polinomios a multiplicar.
+     * @return Un nuevo polinomio que es el resultado del producto.
+     */
     private Polinomio prodPolinomio(Polinomio[] polinomios) {
         Polinomio p = polinomios[0];
         for (int i = 1; i < polinomios.length; i++) {
@@ -134,6 +191,12 @@ public class OperacionesPolinomios {
         return p;
     }
 
+    /**
+     * Genera polinomios de primer grado a partir de puntos dados.
+     *
+     * @param puntos La matriz de puntos donde cada fila es un par (x, y).
+     * @return Un arreglo de polinomios de primer grado.
+     */
     private Polinomio[] generarPolinomios(BigDecimal[][] puntos) {
         Polinomio[] polinomios = new Polinomio[puntos.length];
         int i = 0;
@@ -144,7 +207,15 @@ public class OperacionesPolinomios {
         }
         return polinomios;
     }
-
+    /**
+     * Calcula el producto de Lagrange para un punto específico.
+     *
+     * @param i          El índice del punto en la matriz de puntos.
+     * @param x          La matriz de puntos donde cada fila es un par (x, y).
+     * @param polinomio  El producto de los polinomios generados.
+     * @param polinomios Los polinomios generados a partir de los puntos.
+     * @return El resultado del producto de Lagrange para el punto especificado.
+     */
     private Polinomio prodcutoLagrange(int i, BigDecimal[][] x, Polinomio polinomio, Polinomio[] polinomios) {
         Polinomio res = division(polinomios[i], polinomio);
         BigDecimal prod = BigDecimal.ONE;
