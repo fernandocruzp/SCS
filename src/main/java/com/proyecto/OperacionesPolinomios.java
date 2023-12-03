@@ -161,6 +161,8 @@ public class OperacionesPolinomios {
         for (int i = 1; i < puntos.length; i++) {
             res = suma(res, productoEscalar(prodcutoLagrange(i, puntos, polinomioProd, polinomios), puntos[i][1]));
         }
+        System.out.println(res);
+        System.out.println(redondeo(res));
         return redondeo(res);
     }
     /**
@@ -224,7 +226,7 @@ public class OperacionesPolinomios {
                 continue;
             prod = prod.multiply(x[i][0].subtract(x[j][0]));
         }
-        BigDecimal divisor = BigDecimal.ONE.divide(prod, 10, BigDecimal.ROUND_HALF_UP);
+        BigDecimal divisor = BigDecimal.ONE.divide(prod, 20, BigDecimal.ROUND_HALF_UP);
         res = productoEscalar(res, divisor);
         return res;
     }

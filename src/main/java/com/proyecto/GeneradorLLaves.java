@@ -4,9 +4,11 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,16 +32,22 @@ public class GeneradorLLaves {
         BigDecimal[] coeficientes=new BigDecimal[n];
         coeficientes[0]=llave;
         for(int i=1;i<n;i++)
-            coeficientes[i]=BigDecimal.valueOf(generador.nextInt(1000));
+            coeficientes[i]=BigDecimal.valueOf(generador.nextInt(20));
 
         try {
             Polinomio polinomio=new Polinomio(n-1,coeficientes);
 
             BigDecimal[][] puntos=new BigDecimal[t][2];
-            for (int i=0;i<t;i++){
-                int x= (generador.nextInt(6));
-                puntos[i][0]=BigDecimal.valueOf(x);
-                puntos[i][1]=polinomio.evaluarPolinomio(x);
+            ArrayList<Integer> numeros=new ArrayList<>();
+            int i=0;
+            while(numeros.size()!=t){
+                int x= (generador.nextInt(t+20));
+                if(!numeros.contains(x)){
+                    numeros.add(x);
+                    puntos[i][0]=BigDecimal.valueOf(x);
+                    puntos[i][1]=polinomio.evaluarPolinomio(x);
+                    i++;
+                }
             }
             StringBuilder contentenido = new StringBuilder();
             for(BigDecimal[] punto : puntos)
@@ -70,7 +78,7 @@ public class GeneradorLLaves {
             }
             OperacionesPolinomios lagrange= new OperacionesPolinomios();
             Polinomio polinomio = lagrange.interpolacionLagrange(puntos);
-            return polinomio.coeficienteIndependiente();
+            return polinomio.coeficienteIndependiente().setScale(0, RoundingMode.HALF_UP);
         }catch (IOException ie){
             System.out.println("No se encontró el archivo de llaves");
             return null;
