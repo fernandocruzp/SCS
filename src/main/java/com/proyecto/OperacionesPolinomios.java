@@ -161,8 +161,6 @@ public class OperacionesPolinomios {
         for (int i = 1; i < puntos.length; i++) {
             res = suma(res, productoEscalar(prodcutoLagrange(i, puntos, polinomioProd, polinomios), puntos[i][1]));
         }
-        System.out.println(res);
-        System.out.println(redondeo(res));
         return redondeo(res);
     }
     /**

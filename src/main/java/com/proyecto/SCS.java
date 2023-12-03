@@ -47,13 +47,18 @@ public class SCS{
                     java.util.Arrays.fill(arreglo, ' ');
                     System.out.println("Contraseña ingresada.");
                     System.out.println("Cifrando...");
-                    System.out.println(convertirByte(llave));
                     BigDecimal terminoIndependiente= convertirByte(llave);
                     GeneradorLLaves.guardarLlaves(minPuntos,totalEvaluaciones,terminoIndependiente,evaluacionNombre);
                     hash.reset();
                     hash.update(toBytes(terminoIndependiente));
                     byte[] encripta= hash.digest();
-                    System.out.println(bytesToHex(encripta));
+                    Cifrador cifrador = new Cifrador(encripta);
+                    String texto =cifrador.cifrar(nombredocumento);
+                    if(texto==null){
+                        System.out.println("Hubo un error");
+                        System.exit(1);
+                    }
+                    System.out.println("Se ha encriptado correctamente el archivo");
                 }catch (NoSuchAlgorithmException ns){}
                 catch (IllegalArgumentException ie){}
                 break;
@@ -68,13 +73,17 @@ public class SCS{
                 String archivoCifrado=args[2];
                 System.out.println("Descifrando...");
                 BigDecimal llave= GeneradorLLaves.generarLlave(llaves);
-                byte[] llaveArreglo=convertirBigDecimal(llave);
-                System.out.println(llave);
                 try {
                     MessageDigest hash = MessageDigest.getInstance("SHA-256");
                     hash.update(toBytes(llave));
                     byte[] clave= hash.digest();
-                    System.out.println(bytesToHex(clave));
+                    Cifrador desifrar = new Cifrador(clave);
+                    String texto = desifrar.decifrar(archivoCifrado);
+                    if(texto==null){
+                        System.out.println("Hubo un error");
+                        System.exit(1);
+                    }
+                    System.out.println("Se ha desencriptado correctamente el archivo");
                 }catch (NoSuchAlgorithmException e){}
 
                 break;
