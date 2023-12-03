@@ -45,7 +45,6 @@ public class Cifrador {
             escribirArchivo(encriptar+".aes",textoEncriptado);
             return textoEncriptado;
         } catch (Exception e) {
-            System.out.println(e);
             return null;
         }
     }
@@ -61,7 +60,6 @@ public class Cifrador {
             escribirArchivo(decifrar+".orig",textoDesencriptado);
             return textoDesencriptado;
         } catch (Exception e) {
-            System.out.println(e);
             return null;
         }
     }

@@ -95,17 +95,12 @@ public class SCS{
     }
 
     private static byte[] toBytes(BigDecimal decimal) {
-        // Convert BigDecimal to byte array using ByteBuffer
         return ByteBuffer.allocate(8).putDouble(decimal.doubleValue()).array();
     }
     private static BigDecimal convertirByte(byte[] arreglo){
         byte[] primeros = Arrays.copyOfRange(arreglo, 0, 4);
         BigInteger intermedio= new BigInteger(1,primeros);
         return new BigDecimal(intermedio,0);
-    }
-
-    private static byte[] convertirBigDecimal(BigDecimal p){
-        return null;
     }
 
     private static String bytesToHex(byte[] bytes) {
@@ -115,4 +110,5 @@ public class SCS{
         }
         return result.toString();
     }
+
 }
