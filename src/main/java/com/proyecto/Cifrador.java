@@ -19,11 +19,19 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-//Clase que se encarga de cifrar y decifrar
+/**
+ * Clase que se encarga de cifrar o descifrar archivos.
+ * Así como de su lectura y escritura.
+ */
 public class Cifrador { 
-    SecretKeySpec Llave;
-    byte[] vector;
-    //método para generar clave de encriptación
+    public SecretKeySpec Llave;
+    public byte[] vector;
+
+    /**
+     * Genera la clave que se usará para la encriptación de un archivo.
+     *
+     * @param cadena Contraseña proveida por el usuario ya procesada.
+     */
     public Cifrador(byte[] cadena){ 
         try {
             Llave= new SecretKeySpec(cadena,"AES");
@@ -35,7 +43,12 @@ public class Cifrador {
         }
     }
 
-    //Cifrar
+    /**
+     * Cifra el contenido del archivo indicado.
+     *
+     * @param encriptar Nombre del archivo que se desea encriptar.
+     * @return Contenido del archivo ahora encriptado.
+     */
     public String cifrar(String encriptar){
         try { 
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
@@ -49,7 +62,12 @@ public class Cifrador {
         }
     }
 
-    //Decifrar
+    /**
+     * Decifra el contenido del archivo indicado.
+     *
+     * @param decifrar Nombre del archivo que se desea decifrar.
+     * @return Contenido decifrado del archivo.
+     */
     public String decifrar(String decifrar){
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
@@ -64,16 +82,38 @@ public class Cifrador {
         }
     }
 
-    private String leerArchivo(String archivo) throws IOException{
+    /**
+     * Lee un archivo.
+     *
+     * @param archivo El nombre del archivo.
+     * @return El contenido del archivo en un String.
+     * @throws IOException Si existe un problema al leer el archivo.
+     */ 
+    public String leerArchivo(String archivo) throws IOException{
         Path direccion= Paths.get(archivo);
+	if(!Files.exists(direccion)) {
+	    System.out.println("El archivo no se encontró");
+	    return null;
+	}
+	if(!Files.isReadable(direccion)) {
+	     System.out.println("El archivo no se pudo leer");
+	    return null;
+	}
         byte[] contenido = Files.readAllBytes(direccion);
         return new String(contenido);
     }
 
-    private void escribirArchivo(String nombre, String contenido) throws IOException {
+     /**
+     * Escribe un archivo.
+     *
+     * @param nombre  El nombre del archivo más terminación .aes .
+     * @param contenido El contenido ya procesado que se desea escribir.
+     * @throws IOException Si existe un problema al escribir el archivo.
+     */ 
+    public void escribirArchivo(String nombre, String contenido) throws IOException {
         Path direccion = Paths.get(nombre);
         Files.write(direccion,contenido.getBytes());
     }
 
 }
-//Verificar errores, si un archivo no esta 
+
