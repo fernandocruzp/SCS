@@ -80,7 +80,7 @@ public class SCS{
                     Cifrador desifrar = new Cifrador(clave);
                     String texto = desifrar.decifrar(archivoCifrado);
                     if(texto==null){
-                        System.out.println("Hubo un errour");
+                        System.out.println("Hubo un error");
                         System.exit(1);
                     }
                     System.out.println("Se ha desencriptado correctamente el archivo");
