@@ -39,7 +39,7 @@ public class Cifrador {
             SecureRandom random = new SecureRandom();
             random.nextBytes(vector);
         } catch (Exception e) {
-
+	    System.err.println("Error al inicializar el cifrador: " + e.getMessage());
         }
     }
 
