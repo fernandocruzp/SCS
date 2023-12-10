@@ -24,7 +24,7 @@ import javax.crypto.spec.SecretKeySpec;
  * Así como de su lectura y escritura.
  */
 public class Cifrador { 
-    public SecretKeySpec Llave;
+    public SecretKeySpec llave;
     public byte[] vector;
 
     /**
@@ -34,7 +34,7 @@ public class Cifrador {
      */
     public Cifrador(byte[] cadena){ 
         try {
-            Llave= new SecretKeySpec(cadena,"AES");
+            llave= new SecretKeySpec(cadena,"AES");
             vector=new byte[16];
             SecureRandom random = new SecureRandom();
             random.nextBytes(vector);
@@ -52,12 +52,14 @@ public class Cifrador {
     public String cifrar(String encriptar){
         try { 
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            cipher.init(cipher.ENCRYPT_MODE, Llave,new IvParameterSpec(vector));
+            cipher.init(cipher.ENCRYPT_MODE, llave,new IvParameterSpec(vector));
             byte[] encriptada= cipher.doFinal(leerArchivo(encriptar).getBytes());
             String textoEncriptado = Base64.getEncoder().encodeToString(encriptada);
             escribirArchivo(encriptar+".aes",textoEncriptado);
             return textoEncriptado;
         } catch (Exception e) {
+            System.err.println("Error al cifrar: " + e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
@@ -71,13 +73,15 @@ public class Cifrador {
     public String decifrar(String decifrar){
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            cipher.init(cipher.DECRYPT_MODE, Llave,new IvParameterSpec(vector));
+            cipher.init(cipher.DECRYPT_MODE, llave,new IvParameterSpec(vector));
             byte[] encriptado = Base64.getDecoder().decode(leerArchivo(decifrar));
             byte [] desencriptado = cipher.doFinal(encriptado);
             String textoDesencriptado = new String(desencriptado);
             escribirArchivo(decifrar+".orig",textoDesencriptado);
             return textoDesencriptado;
         } catch (Exception e) {
+            System.err.println("Error al descifrar: " + e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
@@ -113,6 +117,12 @@ public class Cifrador {
     public void escribirArchivo(String nombre, String contenido) throws IOException {
         Path direccion = Paths.get(nombre);
         Files.write(direccion,contenido.getBytes());
+        try {
+            Files.write(direccion, contenido.getBytes(), StandardOpenOption.CREATE);
+        } catch (IOException e) {
+            System.err.println("Error al escribir el archivo: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 }

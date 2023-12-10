@@ -9,8 +9,16 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+/**
+ * Clase principal que proporciona funcionalidad para cifrar y descifrar archivos.
+ */
 public class SCS{
 
+    /**
+     * Método principal que maneja la ejecución del programa.
+     *
+     * @param args Los argumentos de la línea de comandos.
+     */
     public static void main(String[] args){
         if (args.length < 2) {
             System.out.println("\nUso: java Main <opcion> <otros_parametros>\n");
@@ -94,15 +102,34 @@ public class SCS{
         }
     }
 
+    /**
+     * Convierte un objeto BigDecimal en un array de bytes.
+     *
+     * @param decimal El objeto BigDecimal a convertir.
+     * @return Un array de bytes que representa el objeto BigDecimal.
+     */
     private static byte[] toBytes(BigDecimal decimal) {
         return ByteBuffer.allocate(8).putDouble(decimal.doubleValue()).array();
     }
+
+    /**
+     * Convierte un array de bytes en un objeto BigDecimal.
+     *
+     * @param arreglo El array de bytes a convertir.
+     * @return Un objeto BigDecimal obtenido a partir del array de bytes.
+     */
     private static BigDecimal convertirByte(byte[] arreglo){
         byte[] primeros = Arrays.copyOfRange(arreglo, 0, 4);
         BigInteger intermedio= new BigInteger(1,primeros);
         return new BigDecimal(intermedio,0);
     }
 
+    /**
+     * Convierte un array de bytes en una representación hexadecimal.
+     *
+     * @param bytes El array de bytes a convertir.
+     * @return Una cadena que representa los bytes en formato hexadecimal.
+     */
     private static String bytesToHex(byte[] bytes) {
         StringBuilder result = new StringBuilder();
         for (byte b : bytes) {

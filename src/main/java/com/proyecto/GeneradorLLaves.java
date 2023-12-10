@@ -58,8 +58,9 @@ public class GeneradorLLaves {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }catch (IllegalArgumentException ie){
-            System.out.println("Hubo un error");
+        }catch (IllegalArgumentException e){
+            System.err.println("Hubo un error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
     /**
@@ -79,8 +80,9 @@ public class GeneradorLLaves {
             OperacionesPolinomios lagrange= new OperacionesPolinomios();
             Polinomio polinomio = lagrange.interpolacionLagrange(puntos);
             return polinomio.coeficienteIndependiente().setScale(0, RoundingMode.HALF_UP);
-        }catch (IOException ie){
-            System.out.println("No se encontró el archivo de llaves");
+        }catch (IOException e){
+            System.err.println("Error al leer el archivo de llaves: " + e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
