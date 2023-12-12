@@ -46,6 +46,11 @@ public class SCS{
                     System.exit(1);
                 }
 
+                if (minPuntos > totalEvaluaciones){
+                    System.out.println("El número de puntos mínimos debe ser menor al número de evaluaciones");
+                    System.exit(1);
+                }
+
                 char[] arreglo = console.readPassword("Ingrese la contraseña: ");
                 String contraseña = new String(arreglo);
                 try {

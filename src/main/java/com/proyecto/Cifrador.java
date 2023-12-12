@@ -23,7 +23,7 @@ import javax.crypto.spec.SecretKeySpec;
  * Clase que se encarga de cifrar o descifrar archivos.
  * Así como de su lectura y escritura.
  */
-public class Cifrador { 
+public class Cifrador {
     public SecretKeySpec llave;
     public byte[] vector;
 
@@ -55,7 +55,7 @@ public class Cifrador {
             cipher.init(cipher.ENCRYPT_MODE, llave,new IvParameterSpec(vector));
             byte[] encriptada= cipher.doFinal(leerArchivo(encriptar).getBytes());
             String textoEncriptado = Base64.getEncoder().encodeToString(encriptada);
-            escribirArchivo(encriptar+".aes",textoEncriptado);
+            escribirArchivo(encriptar.substring(0,encriptar.length()-4)+".aes",textoEncriptado);
             return textoEncriptado;
         } catch (Exception e) {
             System.err.println("Error al cifrar: " + e.getMessage());
@@ -76,7 +76,7 @@ public class Cifrador {
             byte[] encriptado = Base64.getDecoder().decode(leerArchivo(decifrar));
             byte [] desencriptado = cipher.doFinal(encriptado);
             String textoDesencriptado = new String(desencriptado);
-            escribirArchivo(decifrar+".orig",textoDesencriptado);
+            escribirArchivo(decifrar.substring(0,decifrar.length()-4)   +".orig",textoDesencriptado);
             return textoDesencriptado;
         } catch (Exception e) {
             System.err.println("Error al descifrar: " + e.getMessage());

@@ -60,7 +60,6 @@ public class GeneradorLLaves {
             }
         }catch (IllegalArgumentException e){
             System.err.println("Hubo un error: " + e.getMessage());
-            e.printStackTrace();
         }
     }
     /**
@@ -81,8 +80,6 @@ public class GeneradorLLaves {
             Polinomio polinomio = lagrange.interpolacionLagrange(puntos);
             return polinomio.coeficienteIndependiente().setScale(0, RoundingMode.HALF_UP);
         }catch (IOException e){
-            System.err.println("Error al leer el archivo de llaves: " + e.getMessage());
-            e.printStackTrace();
             return null;
         }
     }
