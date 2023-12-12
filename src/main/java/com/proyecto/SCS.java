@@ -109,6 +109,7 @@ public class SCS{
      * @return Un array de bytes que representa el objeto BigDecimal.
      */
     private static byte[] toBytes(BigDecimal decimal) {
+        // Convert BigDecimal to byte array using ByteBuffer
         return ByteBuffer.allocate(8).putDouble(decimal.doubleValue()).array();
     }
 

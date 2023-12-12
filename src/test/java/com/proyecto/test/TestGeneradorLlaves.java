@@ -35,7 +35,7 @@ public class TestGeneradorLlaves {
 
     @Test
     public void testGenerarLlave(){
-        Assert.assertTrue(GeneradorLLaves.generarLlave("Pepa")==null);
+                Assert.assertTrue(GeneradorLLaves.generarLlave("Pepa") == null);
         BigDecimal[] coeficientes = {BigDecimal.valueOf(2), BigDecimal.valueOf(7), BigDecimal.valueOf(17), BigDecimal.valueOf(19)};
         Polinomio polinomio = new Polinomio(3, coeficientes);
         creaArchivodePrueba(polinomio);

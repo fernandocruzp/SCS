@@ -59,7 +59,6 @@ public class Cifrador {
             return textoEncriptado;
         } catch (Exception e) {
             System.err.println("Error al cifrar: " + e.getMessage());
-            e.printStackTrace();
             return null;
         }
     }
@@ -81,7 +80,6 @@ public class Cifrador {
             return textoDesencriptado;
         } catch (Exception e) {
             System.err.println("Error al descifrar: " + e.getMessage());
-            e.printStackTrace();
             return null;
         }
     }

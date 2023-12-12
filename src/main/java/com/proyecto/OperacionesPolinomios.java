@@ -224,7 +224,7 @@ public class OperacionesPolinomios {
                 continue;
             prod = prod.multiply(x[i][0].subtract(x[j][0]));
         }
-        BigDecimal divisor = BigDecimal.ONE.divide(prod, 30, BigDecimal.ROUND_HALF_UP);
+        BigDecimal divisor = BigDecimal.ONE.divide(prod, 20, BigDecimal.ROUND_HALF_UP);
         res = productoEscalar(res, divisor);
         return res;
     }
