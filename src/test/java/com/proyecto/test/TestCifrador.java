@@ -17,7 +17,7 @@ public class TestCifrador {
     public void testGenerarClave() {
         byte[] clave = "claveSecreta".getBytes();
         Cifrador cifrador = new Cifrador(clave);
-        assertNotNull(cifrador.Llave);
+        assertNotNull(cifrador.llave);
         assertNotNull(cifrador.vector);
     }
 
